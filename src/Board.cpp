@@ -36,7 +36,7 @@ bool Board::check()
 	// check lines
 	for (auto i = 0; i < 3; i++)
 	{
-		if (board_[i][j] == board_[i][++j] && board_[i][j] == board_[i][++j])
+		if (board_[i][j] == board_[i][j+1] && board_[i][j] == board_[i][j+1])
 			return true;
 		j = 0;
 	}
@@ -44,18 +44,18 @@ bool Board::check()
 	// check columns
 	for (auto j = 0; j < 3; j++)
 	{
-		if (board_[i][j] == board_[++i][j] && board_[i][j] == board_[++i][j])
+		if (board_[i][j] == board_[i+1][j] && board_[i][j] == board_[i+1][j])
 			return true;
 		i=0;
 	}
 
 	// check diags
-	if (board_[i][j] == board_[++i][++j] && board_[i][j] == board_[++i][++j])
+	if (board_[i][j] == board_[i+1][j+1] && board_[i][j] == board_[i+1][j+1])
 		return true;
 
 	i = 0;
 	j = SIZE - 1;
-	return board_[i][j] == board_[++i][--j] && board_[i][j] == board_[++i][--j];
+	return board_[i][j] == board_[i+1][j-1] && board_[i][j] == board_[i+1][j-1];
 }
 
 bool Board::update(int position)
