@@ -1,13 +1,42 @@
-file(GLOB SRC_TEST_FILES
-	"*.cpp"
+# set a variable that contains the list
+# of source files to be built for our targets
+set(${PROJECT_ID}_TEST_SOURCES
+	BoardTest.cpp
+	GameTest.cpp
+	main.cpp
 )
 
-add_executable(CPPTutorial-test
+# the ${PROJECT_ID}-test target shall be an executable
+add_executable(${PROJECT_ID}-test
 	${SRC_TEST_FILES}
 )
 
-include_directories(../include/)
+# set the source files to be built into the executable
+target_sources(${PROJECT_ID}-test
+	PRIVATE
+		${${PROJECT_ID}_TEST_SOURCES}
+)
 
-add_test(NAME CPPTutorial-test COMMAND CPPTutorial-test)
+# provide private include paths for our executable
+target_include_directories(${PROJECT_ID}-test
+	PRIVATE
+		../include
+)
 
-target_link_libraries(CPPTutorial-test PUBLIC CPPTutorial-static gtest gmock)
+# set the C++ 20 standard
+target_compile_features(${PROJECT_ID}-test
+	PRIVATE
+		cxx_std_20
+)
+
+add_test(
+	NAME ${PROJECT_ID}-test
+	COMMAND ${PROJECT_ID}-test
+)
+
+target_link_libraries(${PROJECT_ID}-test
+	PUBLIC
+		${PROJECT_ID}-static
+		gtest
+		gmock
+)
