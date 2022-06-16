@@ -7,9 +7,7 @@ set(${PROJECT_ID}_TEST_SOURCES
 )
 
 # the ${PROJECT_ID}-test target shall be an executable
-add_executable(${PROJECT_ID}-test
-	${SRC_TEST_FILES}
-)
+add_executable(${PROJECT_ID}-test)
 
 # set the source files to be built into the executable
 target_sources(${PROJECT_ID}-test
