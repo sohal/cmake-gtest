@@ -1,0 +1,49 @@
+{
+    "version": 2,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 24,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "config-hostcc-static",
+            "displayName": "ConfigureStaticLib",
+            "description": "config-hostcc-static",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/${presetName}"
+            }
+        },
+        {
+            "name": "config-gtest-hostcc-static",
+            "displayName": "ConfigureGTest",
+            "description": "config-gtest-hostcc-static",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/${presetName}",
+                "BUILD_TESTS": "ON"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "build-hostcc-static",
+            "configurePreset": "config-gtest-hostcc-static"
+        },
+        {
+            "name": "build-gtest-hostcc-static",
+            "configurePreset": "config-gtest-hostcc-static"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "test-hostcc-static",
+            "configurePreset": "config-gtest-hostcc-static"
+        }
+    ]
+}

@@ -27,9 +27,10 @@ target_compile_features(${PROJECT_ID}-test
 		cxx_std_20
 )
 
-add_test(
-	NAME ${PROJECT_ID}-test
-	COMMAND ${PROJECT_ID}-test
+target_compile_options(${PROJECT_ID}-test
+	PRIVATE
+		-ftest-coverage
+		-fPIC
 )
 
 target_link_libraries(${PROJECT_ID}-test
@@ -38,3 +39,5 @@ target_link_libraries(${PROJECT_ID}-test
 		gtest
 		gmock
 )
+include(GoogleTest)
+gtest_discover_tests(${PROJECT_ID}-test)

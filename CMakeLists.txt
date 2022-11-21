@@ -27,6 +27,20 @@ option(BUILD_TESTS "Build tests also for ${PROJECT_NAME}" OFF)
 # add the subdirectory(with CMakeLists.txt) for tests
 if (BUILD_TESTS)
 	set(BUILD_GMOCK ON)
-	add_subdirectory(external/googletest)
+	#cmake_minimum_required(VERSION 3.14)
+	#project(my_project)
+
+	# GoogleTest requires at least C++14
+	set(CMAKE_CXX_STANDARD 14)
+
+	include(FetchContent)
+	FetchContent_Declare(
+		googletest
+		URL https://github.com/google/googletest/archive/refs/tags/release-1.12.1.tar.gz
+		DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+	)
+	# For Windows: Prevent overriding the parent project's compiler/linker settings
+	set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+	FetchContent_MakeAvailable(googletest)
 	add_subdirectory(test)
 endif()
